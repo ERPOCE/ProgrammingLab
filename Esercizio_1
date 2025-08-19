@@ -1,0 +1,36 @@
+# Primo ciclo, che crea un array contenente tutti i numeri fino a 25 escluso
+
+lista = []
+for x in range(25):
+    lista.append(x)
+
+# Versione con la list comprehension
+
+lista = []
+lista = [x for x in range(25)]
+
+
+# Secondo ciclo, che crea un array contenente i numeri pari fino a 25 escluso
+
+lista = []
+for x in range(25):
+    if x % 2 == 0:
+        lista.append(x)
+
+# Versione con la list comprehension
+
+lista = []
+lista = [x for x in range(25) if x % 2 == 0]
+
+
+# Terzo ciclo, che crea un array contenente i quadrati dei numeri dispari fino a 25 escluso
+
+lista = []
+for x in range(25):
+    if x % 2 != 0:
+        lista.append(x ** 2)
+
+# Versione con la list comprehension
+
+lista = []
+lista = [x ** 2 for x in range(25) if x % 2 != 0]
