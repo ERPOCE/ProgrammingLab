@@ -1,0 +1,14 @@
+import numpy as np 
+
+a = np.arange(10, 50).reshape(4, 10)
+
+b = a[[1, 3], :]
+
+c = a[2, :]
+
+print("Vettore A:\n", a)
+print("Vettore B:\n", b)
+print("Vettore C:\n", c)
+
+divisione = a / c
+print("Risultato della divisione:\n", divisione)
