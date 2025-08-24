@@ -1,0 +1,15 @@
+import numpy as np 
+
+bpm = np.array([68, 65, 77, 110, 160, 161, 162, 161, 160, 161, 162, 163, 164, 163, 162, 100, 90, 97, 72, 60, 70])
+
+minimo = bpm.min()
+print("\nLa frequenza cardiaca minima: ", minimo)
+
+massimo = bpm.max()
+print("\nLa frequenza caridaca massima: ", massimo)
+
+sopra_120 = bpm > 120
+print("\nI valori True rappresenta la frequenza superiore a 120:\n", sopra_120)
+
+percentuale = sopra_120.mean() * 100
+print(f"\nPercentuale di letture durante l'esercizio fisico: {percentuale} %\n")
