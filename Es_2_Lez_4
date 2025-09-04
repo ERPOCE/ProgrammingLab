@@ -51,7 +51,7 @@ sns.displot(
     col="Pclass",
     bins=20,
     kde=True,
-    element="step",
+    element="step"
 )
 
 plt.subplots_adjust(top=0.8)
