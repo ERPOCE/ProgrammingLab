@@ -1,0 +1,49 @@
+# Importo le librerie necessarie
+import numpy as np 
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Ricopio il dataframe
+csv_path = "books.csv"
+books = pd.read_csv(csv_path)
+
+# Creo una colonna calcolando l'engagement score dei libri presenti
+books["engagement_score"] = books["average_rating"] * np.log10(1 + books["ratings_count"])
+
+# Trovo l'indice e restituisco il libro con l'engagement score più alto
+libro_massimo = books.loc[books["engagement_score"].idxmax()]
+print("\nIl libro col massimo valore di engagement score:\n")
+print(libro_massimo[["title", "average_rating", "engagement_score"]])
+
+# Filtro i libri con un average rating superiore a 4.5
+libri_superiori = books[books["average_rating"] > 4.5]
+print(libri_superiori[["title", "average_rating"]])
+
+# Uso .nlargest() per selezionare in ordine decrescente i 10 libri con l'engagement score più alto
+# .nlargest(n, colonna) è un metodo di pandas più veloce ma uguale al metodo di numpy df.sort_values(colonna, ascending=False).head(n)
+top_10_libri = books.nlargest(10, "engagement_score")
+
+# Creo il plot dove in ordine decrescente si notano i 10 libri col engagement score più alto
+plt.figure(figsize=(12,6))
+plt.barh(top_10_libri["engagement_score"], top_10_libri["title"])
+plt.xlabel("Nomi dei libri")
+plt.ylabel("Engagement score")
+plt.title("I 10 libri col engagement score più alto")
+plt.xticks(rotation=90)
+plt.grid(True)
+plt.show()
+
+# Creo il plot meno leggibile della storia (ho provato in ogni modo a renderlo un minimo leggibile) 
+# Dato che ci sono troppi libri, alla fine ho solamente inserito una linea tratteggiata ad indicare la media dell'average rating
+# Sull'asse delle x troviamo il ratings count mentre sull'asse delle y troviamo l'average rating
+libri_in_scala = books.sort_values("ratings_count")
+media_libri = books["average_rating"].mean()
+plt.figure(figsize=(12,6))
+plt.plot(libri_in_scala["ratings_count"], libri_in_scala["average_rating"], marker="o", linestyle="-")
+plt.axhline(y=media_libri, color="red", linestyle="--", label=f"Media dell'average rating: {media_libri:.3f}")
+plt.xlabel("Ratings count")
+plt.ylabel("Average rating")
+plt.title("Average rating dei libri in ordine crescente di ratings count")
+plt.legend()
+plt.grid(True)
+plt.show()
