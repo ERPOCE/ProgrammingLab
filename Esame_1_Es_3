@@ -13,10 +13,10 @@ def mat_normalizzata(matrice):
 matrice = np.random.normal(loc=5, scale=2, size=(6, 10))
 
 # Per chiarezza arrotondo i valori della matrice a 5 decimali
-matrice_normalizzata = np.round((mat_normalizzata(matrice)), 5)
+matrice_normalizzata = mat_normalizzata(matrice)
 
 # Mostro a schermo tutti i valori e arrotondo la media e la std a 5 decimali
-print("\nLa matrice originale:\n", matrice)
-print("\nLa matrice normalizzata:\n", matrice_normalizzata)
+print("\nLa matrice originale:\n", round(matrice, 5))
+print("\nLa matrice normalizzata:\n", round(matrice_normalizzata, 5))
 print("\nLa media della matrice normalizzata: ", round(np.mean(matrice_normalizzata), 5))
 print("\nLa deviazione standard della matrice normalizzata: ", round(np.std(matrice_normalizzata), 5))
