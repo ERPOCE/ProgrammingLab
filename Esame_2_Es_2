@@ -1,0 +1,40 @@
+# Importo le librerie necessarie
+import numpy as np 
+import matplotlib.pyplot as plt
+
+# Creo una funzione per simulare il lancio di un dado a 6 facce
+# Il dado viene lanciato N volte e viene restituito un array contenente le percentuali di uscita di ogni faccia
+def lancio_dado(N):
+    lanci = np.random.randint(1, 7, size=N)
+    conteggio = np.array([np.sum(lanci == faccia) for faccia in range(1, 7)])
+    frequenze = (conteggio / N) * 100
+    return frequenze
+
+# Assegno ad un vettore i 100 valori equidistanti creati tra 10 e 5000
+campioni = np.linspace(10, 5000, 100, dtype=int)
+
+# Creo un dizionario le cui chiavi saranno i campioni creati e i valori ad esse associati saranno un array con 6 celle
+# Le 6 celle in questione sono le frequenze di uscita delle facce di tutti i lanci effettuati usando quel campione come numero di lanci
+ogni_frequenza = {}
+for campione in campioni:
+    ogni_frequenza[campione] = np.array(lancio_dado(campione))
+
+# Assegno a 3 variabili tutte le frequenze di uscita di una determinata faccia per ogni singolo campione
+frequenza_1 = [ogni_frequenza[N][0] for N in campioni]
+frequenza_3 = [ogni_frequenza[N][2] for N in campioni]
+frequenza_6 = [ogni_frequenza[N][5] for N in campioni]
+
+# Creo un plot dove compaioni i valori delle frequenze di uscita delle facce come punti, i quali sono collegati tramite linee
+# Inoltre ad altezza 16,7 compare una linea tratteggiata che corrisponde alla probabilità attesa di uscita di una singola faccia nei vari lanci
+# Ovviamente, non sempre le facce escono il 16,7% delle volte ma man mano che il numero di lanci aumenta, i punti tendono ad avvicinarsi a tale percentuale
+plt.figure(figsize=(12,6))
+plt.plot(campioni, frequenza_1, label="Faccia 1", marker="o", markersize=3)
+plt.plot(campioni, frequenza_3, label="Faccia 3", marker="s", markersize=3)
+plt.plot(campioni, frequenza_6, label="Faccia 6", marker="^", markersize=3)
+plt.axhline(100/6, color="red", linestyle="--", label="Probabilità attesa (16,7%)")
+plt.xlabel("Dimensione del campione")
+plt.ylabel("Frequenza delle volte che esce una faccia del dado (%)")
+plt.title("Frequenza delle facce 1, 3 e 6 nei lanci di dado")
+plt.legend()
+plt.grid(True)
+plt.show()
