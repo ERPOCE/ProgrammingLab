@@ -11,12 +11,13 @@ books = pd.read_csv(csv_path)
 books["engagement_score"] = books["average_rating"] * np.log10(1 + books["ratings_count"])
 
 # Trovo l'indice e restituisco il libro con l'engagement score più alto
-libro_massimo = books.loc[books["engagement_score"].idxmax()]
+libro_massimo = books.nlargest(1, "engagement_score")
 print("\nIl libro col massimo valore di engagement score:\n")
 print(libro_massimo[["title", "average_rating", "engagement_score"]])
 
 # Filtro i libri con un average rating superiore a 4.5
 libri_superiori = books[books["average_rating"] > 4.5]
+print("\nI libri con un average rating superiore a 4.5\n")
 print(libri_superiori[["title", "average_rating"]])
 
 # Uso .nlargest() per selezionare in ordine decrescente i 10 libri con l'engagement score più alto
